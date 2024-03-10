@@ -1,0 +1,17 @@
+:root{
+    --background-color: #e4dcc1;
+    --main-color: #32746d;
+    --main-color-darker: #104f55;
+    --secondary-color: #f3efe0;
+}
+
+body{
+    background-image: url('../../public/background.png');
+    /* justify-content: center; */
+    /* display: grid; */
+}
+
+main{
+    justify-content: center;
+    display: grid;
+}
