@@ -1,5 +1,5 @@
 'use client'
-import { getAllList } from "@/utils/fetch_data";
+import { get_all } from "@/utils/fetch_data";
 import { useEffect, useState } from "react";
 import Cards from "./products/Cards";
 import style from "../../styles/home.module.css"
@@ -13,7 +13,7 @@ function Container() {
     try 
     {
       setLoading(true);
-      const response = await getAllList('products');
+      const response = await get_all('products');
       setProducts(response);
     } 
     catch (error) 

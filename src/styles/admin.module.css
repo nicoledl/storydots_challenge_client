@@ -113,13 +113,33 @@
   border: #292929 1px solid;
 }
 
-.dashboard_row > div, .dashboard_row > img{
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+
+.dashboard_row > div, .dashboard_row > img, .dashboard_row_brands > img{
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
+
+.dashboard_row {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    height: 40px;
+    border: #292929 1px solid;
+  }
+
+.dashboard_row_brands {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    height: 40px;
+    border: #292929 1px solid;
+    grid-column-gap: 50px;
+  }
+
+/* ///////////////////////////////////////////////// */
 
 @media only screen and (max-width: 720px) {
 }

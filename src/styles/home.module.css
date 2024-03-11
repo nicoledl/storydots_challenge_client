@@ -1,6 +1,7 @@
 .header{
   height: 400px;
   margin-bottom: 80px;
+  width: 70vw;
 }
 
 .header > p:nth-child(2){
@@ -10,6 +11,7 @@
   flex-wrap: wrap;
   font-size: clamp(1.125rem, 2.308vw + 0.029rem, 1.875rem);
   color: #ffffff;
+  animation: fadeIn 2s;
 }
 
 /* ///////////////////////////////////////////////// */
@@ -26,6 +28,8 @@
   border-radius: 50%;
   margin-left: 3%;
   transition: transform 1s;
+  margin: 9px;
+  animation: fadeIn 1s;
 }
 
 .logo > span > p:nth-child(1){
@@ -51,10 +55,10 @@
 .container{
   display: flex;
   justify-content: center;
+  align-content: center;
   column-gap: 40px;
   row-gap: 50px;
   flex-wrap: wrap;
-  max-width: 980px;
   height: auto;
 }
 
@@ -121,6 +125,58 @@
 
 /* ///////////////////////////////////////////////// */
 
+.modal{
+  z-index: 99;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  animation: fadeIn 0.3s;
+}
+
+.modal_container > span{
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: red;
+  margin: 10px;
+  font-size: xx-large;
+  cursor: pointer;
+}
+
+.modal > div{ 
+  background-color: #00000060;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal_container {
+  background-color: #414141;
+  position: relative;
+  display: grid;
+  width: 70vw;
+  height: 80vh;
+}
+
+.modal_container > img{
+}
+
+.modal_container > div{
+}
+
+.modal_container > p{
+}
+
+
+/* ///////////////////////////////////////////////// */
+
+
+
 @media only screen and (max-width: 720px) {
   .card > img {
     background-color: lightblue;
@@ -131,4 +187,11 @@
   .header > p:nth-child(2){
     width: 250px;
   }
+}
+
+/* ///////////////////////////////////////////////// */
+
+@keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
 }

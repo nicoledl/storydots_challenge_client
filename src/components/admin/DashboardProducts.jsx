@@ -1,11 +1,13 @@
 'use client'
 import { useEffect, useState } from 'react';
 import style from '../../styles/admin.module.css';
-import { deleteProduct, getAllList } from '@/utils/fetch_data';
+import { delete_product, get_all } from '@/utils/fetch_data';
 import { useRouter } from 'next/navigation';
+import { BsFillPencilFill, BsFillTrash3Fill, BsPlusCircleFill } from "react-icons/bs";
 
-function Dashboard() {
+function DashboardProducts() {
   const [products, setProducts] = useState([]);
+  const [brands, setBrands] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [action, setAction] = useState(false);
@@ -15,12 +17,17 @@ function Dashboard() {
     try 
     {
       setLoading(true);
-      const response = await getAllList('products');
-      setProducts(response);
+
+      const responseProducts = await get_all('products');
+      const responseBrands = await get_all('brands');
+      
+      setProducts(responseProducts);
+      setBrands(responseBrands)
     } 
     catch (error) 
     {
       setError(error);
+      router.push('/')
     } 
     finally 
     {
@@ -49,17 +56,38 @@ function Dashboard() {
         <div>Price</div>
         <div>Brand</div>
         <div>
-          <button onClick={()=>router.push('/admin/add')}>+</button>
+          <BsPlusCircleFill onClick={()=>router.push('/admin/add/product')} />
         </div>
       </div>
-      {products.map(product => row(product, action, setAction, router))}
+      {products?.map(product => row(product, action, setAction, router, brands))}
     </div>
   )
 }
 
-function row(product, action, setAction, router){
+
+function row(product, action, setAction, router, brands){
+  async function remove(id, setAction, action) {
+    try 
+    {
+      const response = await delete_product('products',id);
+  
+      if (response.ok) {
+        setAction(!action)
+      }
+    } 
+    catch (error) 
+    {
+      localStorage.removeItem('token');
+      if (error.status === 401) {
+        router.push(`/`)
+      }
+      throw error;
+    }
+  }
+
   const {name, description, brandId, image_url, price, id} = product;
   const default_image= "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg"
+  const brand = brands.find(brand=> brandId === brand.id)
 
   return(
     <div className={style.dashboard_row} key={id}>
@@ -67,30 +95,14 @@ function row(product, action, setAction, router){
       <div>{name}</div>
       <div>{description}</div>
       <div>{price}</div>
-      <div>Brand</div>
+      <div>{brand.name}</div>
       <div>
-        <button onClick={()=>{remove(id, setAction, action)}}>Delete</button>
-        <button onClick={()=>{router.push(`/admin/edit/${id}`)}}>Edit</button>
+        <BsFillTrash3Fill onClick={()=>{remove(id, setAction, action)}} />
+        <BsFillPencilFill onClick={()=>{router.push(`/admin/edit/${id}`)}} />
       </div>
     </div>
   )
 }
 
-async function remove(id, setAction, action) {
-  try 
-  {
-    const response = await deleteProduct('products',id);
 
-    if (response === 200) {
-      setAction(!action)
-    }
-  } 
-  catch (error) 
-  {
-    console.error(error)
-  }
-  return
-}
-
-
-export default Dashboard
+export default DashboardProducts

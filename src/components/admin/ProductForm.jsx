@@ -1,9 +1,10 @@
 'use client'
-import { add_and_edit, getOne } from "@/utils/fetch_data"
+import { add_and_edit, get_all, get_by_id } from "@/utils/fetch_data"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 function ProductForm({method, id}) { 
+  const [brands, setBrands] = useState([]);
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
   const router = useRouter()
@@ -14,8 +15,11 @@ function ProductForm({method, id}) {
   async function getProduct(id) {
     try 
     {
-      const response = await getOne('products', id);
-      setProduct(response) 
+      const responseProducts = await get_by_id('products', id);
+      const responseBrands = await get_all('brands');
+
+      setProduct(responseProducts) 
+      setBrands(responseBrands)
     } 
     catch (error) 
     {
@@ -23,11 +27,20 @@ function ProductForm({method, id}) {
     }
   };
 
+  
+  function handlerError(message) {
+    setError(message)
+    setTimeout(() => {
+      setError(null)
+    }, 2000);
+  }
+
   useEffect(()=>{
     if (method === "PUT") {
       getProduct(id)
     }
   },[])
+
 
   async function onSubmit(e) {
     e.preventDefault()
@@ -37,27 +50,27 @@ function ProductForm({method, id}) {
     const { name, description,  image_url, price, brandId} = e.target;
 
     const formData ={
-        name: name.value || product.name,
-        description: description.value || product.description,
-        image_url: image_url.value || product.image_url,
-        price: price.value || product.price,
-        brandId: 1
-      }
-
+      name: name.value || product.name,
+      description: description.value || product.description,
+      image_url: image_url.value || product.image_url,
+      price: price.value || product.price,
+      brandId: brandId.value || product.brandId,
+    }
+      
     try {
       const response = await add_and_edit(method, product?.id, formData)
-  
-      if (!response) {
-        throw new Error('Failed to submit the data. Please try again.')
-      }
       router.push(`/admin/`)
-    } catch (error) {
-      setError(error.message)
-      console.error(error)
-    } finally {
-      setIsLoading(false)
-    }
+    } 
+    catch (error) 
+    {
+      handlerError(`${error.status} ${error.message} `)
+      if (error.status === 401) {
+      router.push(`/`)
+      }
+      throw error;
+    } 
   }
+
 
   return(
     <div>
@@ -71,9 +84,11 @@ function ProductForm({method, id}) {
             <input type="text" name="price" defaultValue={product?.price && product.price} required/>
           <label>Image</label>
             <input type="text" name="image_url" defaultValue={product?.image_url && product.image_url}/>
-          <label>Brand</label>
+          <label>Brands</label>
             <select name="brandId" id="brands" defaultValue={product?.brands && product.brands} required>
-                <option value="volvo">Volvo</option>
+              {
+                brands.map(brand=> <option key={brand.id} value={brand.id}>{brand.name}</option>)
+              }
             </select>
           <button type="submit" disabled={isLoading}>
             {isLoading ? 'Loading...' : 'Submit'}

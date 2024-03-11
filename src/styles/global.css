@@ -7,11 +7,12 @@
 
 body{
     background-image: url('../../public/background.png');
-    /* justify-content: center; */
-    /* display: grid; */
+    margin: 0;
 }
 
 main{
     justify-content: center;
     display: grid;
+    margin: 30px 30px 30px 30px;
+    margin-bottom: 200px;
 }
