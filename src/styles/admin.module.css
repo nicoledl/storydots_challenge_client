@@ -25,7 +25,7 @@
     z-index: 2;
 }
 
-.login > div{
+.login > div, .button_admin_route > button{
     background-color: #ffffff;
     width: 280px;
     height: 300px;
@@ -43,7 +43,7 @@
     margin: 10px 10px 0px 10px;
 }
 
-.login > div > p{
+.login > div > p {
     position: absolute;
     margin-top: 20px;
     margin-left: 10px;
@@ -73,16 +73,16 @@
   transition: background-color 0.1s;
   margin-top: 15px;
 }
-.login > div > form > button:hover{
+.login > div > form > button:hover {
   background-color: var(--main-color-darker);
 }
 
-.login > button{
+.login > svg, .button_admin_route > svg {
     cursor: pointer;
     background: rgba(255, 255, 255, 0.26);
     backdrop-filter: blur(5px);
     text-transform: uppercase;
-    color: #292929;
+    color: #1b1b1b;
     border: none;
     height: min-content;
     padding: 20px 10px 20px 40px;
@@ -90,56 +90,229 @@
     font-weight: 700;
 }
 
-.login > button > img{
-    width: 40px;
-    height: auto;
-    filter: invert(20%);
-}
-
 .login:hover{
     left: 0;
 }
 
+.button_admin_route {
+    position: fixed;
+    display: flex;
+    top: 50%;
+    bottom: 50%;
+    transition: left 1s ease-in-out;
+    z-index: 2;
+    left: 0;
+}
+
+.button_admin_route > svg{
+    background: rgba(0, 0, 0, 0.123);
+    font-size: xx-large;
+    transition: background 0.1s;
+    color: #00000059;
+}
+
+.button_admin_route > svg:hover{
+    background: rgba(255, 255, 255, 0.507);
+    color: #1b1b1b;
+}
+
 /* ///////////////////////////////////////////////// */
 
-.dashboard{
+.navbar_admin{
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
-.dashboard_row {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  height: 40px;
-  border: #292929 1px solid;
+.navbar_admin > div {
+    gap:20;
+    background-color: #ffffff;
+    padding: 20px 70px 20px 70px;
+    border-radius: 30px;
+
 }
 
+.navbar_admin > div > button{
+    background: none;
+    color: #1b1b1b;
+    border: none;
+    cursor: pointer;
+    font-size: clamp(0.813rem, 0.962vw + 0.356rem, 1.125rem);
+}
 
-.dashboard_row > div, .dashboard_row > img, .dashboard_row_brands > img{
+.navbar_admin > div > button:hover{
+    text-decoration: underline 2px var(--main-color);
+}
+
+/* ///////////////////////////////////////////////// */
+
+.dashboard {
+    padding: 20px;
+}
+
+.dashboard_row > div, 
+.dashboard_row > img,
+.dashboard_row_brands > div,
+.dashboard_row_brands > img{
     height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    border-radius: 50%;
 }
 
-.dashboard_row {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    height: 40px;
-    border: #292929 1px solid;
-  }
+.dashboard_row > img,
+.dashboard_row_brands > img{
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+}
 
+.dashboard_row, 
 .dashboard_row_brands {
     width: 100%;
     display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    height: 50px;
+    justify-items: center;
+    align-items: center;
+    font-size: clamp(0.813rem, 0.385vw + 0.63rem, 0.938rem);
+    grid-column-gap: 5px;
+}
+
+.dashboard_row_brands {
+    height: 50px;
+    width: 100%;
     grid-template-columns: repeat(3, 1fr);
-    height: 40px;
-    border: #292929 1px solid;
-    grid-column-gap: 50px;
+    grid-column-gap: 5px;
   }
+
+.dashboard_row:nth-child(even), 
+.dashboard_row_brands:nth-child(even) {
+    background-color: #f0f8ff;
+}
+
+.dashboard_row:nth-child(odd), 
+.dashboard_row_brands:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.dashboard_row:hover, 
+.dashboard_row:hover,
+.dashboard_row_brands:hover, 
+.dashboard_row_brands:hover {
+    background-color: #e3ebf1;
+    cursor: pointer;
+}
+
+.dashboard_row_container {
+    display: grid;
+    height: max-content;
+    background: #ffffff;
+    padding: 0px 15px 0px 15px;
+    box-shadow: 0px 13px 14px -15px rgba(0,0,0,0.44);
+    z-index: 3;
+    position: relative;
+}
+
+.dashboard_row_container > div {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+} 
+
+.dashboard_row_container > div > p > span, .dashboard_row_container > p > span{
+    font-weight: 600;
+}
+
+
+/* ///////////////////////////////////////////////// */
+
+.back_button {
+    font-size: x-large;
+    display: flex;
+    justify-content: flex-start;
+    gap:5px;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.back_button > svg{
+    color: var(--main-color);
+    cursor: pointer;
+}
+
+.form {
+    display: grid;
+    justify-content: center;
+}
+
+.form > h1 {
+    color: var(--main-color);
+    margin: 0px 0px 10px 0px;
+}
+
+.form > form{
+    display: grid;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 5px;
+    max-width: 500px;
+    width: 300px;
+}
+
+.form > form > input, 
+.form > form > select, 
+.form > form > textarea{
+    border-radius: 5px;
+    border: none;
+    background-color: aliceblue;
+    margin-bottom: 20px;
+    padding: 5px 3px 5px 3px;
+}
+
+.form > form > input:focus, 
+.form > form > select:focus , 
+.form > form > select:focus-visible, 
+.form > form > textarea:focus{
+    border-radius: 5px;
+    border: none;
+    background-color: aliceblue;
+    margin-bottom: 20px;
+    padding: 5px 3px 5px 3px;
+    outline: none;
+    background-color: rgb(213, 227, 240);
+}
+
+.form > form > label {
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 5px;
+}
+
+.form > form > textarea {
+    resize: none;
+}
+
+.form > form > button {
+    width: 100px;
+    background-color: var(--main-color);
+    color: #ffffff;
+    border: none;
+    padding: 10px 0px 10px 0px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
 
 /* ///////////////////////////////////////////////// */
 
 @media only screen and (max-width: 720px) {
+    .dashboard_row {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .navbar_admin > div{
+        padding: 10px;
+    }
 }

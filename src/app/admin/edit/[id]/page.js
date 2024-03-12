@@ -1,9 +1,14 @@
+import PrivateRoute from "@/components/admin/PrivateRoute";
 import ProductForm from "@/components/admin/ProductForm";
 
-export default function Home({ params }) {
+function Home({ params }) {
   return (
     <main>
-      <ProductForm method={'PUT'} id={params.id}/>
+      <PrivateRoute>
+        <ProductForm method={'PUT'} id={params.id}/>
+      </PrivateRoute>
     </main>
   );
 }
+
+export default Home

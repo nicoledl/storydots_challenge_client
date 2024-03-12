@@ -4,10 +4,11 @@ import style from '../../styles/admin.module.css';
 import { delete_brand, get_all } from '@/utils/fetch_data';
 import { useRouter } from 'next/navigation';
 import { BsFillTrash3Fill, BsPlusCircleFill } from "react-icons/bs";
+import LoadingScreen from "../Loading"
 
 function DashboardBrands() {
   const [brands, setBrands] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [action, setAction] = useState(false);
   const router = useRouter()
@@ -15,7 +16,7 @@ function DashboardBrands() {
   async function fetchData() {
     try 
     {
-      setLoading(true);
+      setIsLoading(true);
 
       const responseBrands = await get_all('brands');
       setBrands(responseBrands)
@@ -27,7 +28,7 @@ function DashboardBrands() {
     } 
     finally 
     {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -35,8 +36,8 @@ function DashboardBrands() {
     fetchData();
   }, [action]);
   
-  if (loading) {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return <LoadingScreen />;
   }
 
   if (error) {
@@ -45,20 +46,20 @@ function DashboardBrands() {
 
   return(
     <div className={style.dashboard}>
-      <div className={style.dashboard_row_brands}>
+      <div className={style.dashboard_row_brands} style={{backgroundColor:'#ffffff', cursor:'auto', textTransform:'uppercase', fontWeight:'600'}}>
         <div>Image</div>
         <div>Name</div>
         <div>
-          <BsPlusCircleFill onClick={()=>router.push('/admin/add/brands')} />
+          <BsPlusCircleFill onClick={()=>router.push('/admin/add/brands')} style={{color:'var(--main-color)', fontSize:'20px', cursor:'pointer'}}/>
         </div>
       </div>
-      {brands?.map(brand => row(brand, action, setAction, router))}
+      {brands?.map(brand => <Row key={brand.id} brand={brand} action={action} setAction={setAction} router={router} />)}
     </div>
   )
 }
 
 
-function row(brand, action, setAction, router){
+function Row({brand, action, setAction, router}){
   async function remove(id, setAction, action) {
     try 
     {
@@ -86,7 +87,7 @@ function row(brand, action, setAction, router){
       <img src={logo_url || default_image} alt={name} style={{objectFit:'cover'}} />
       <div>{name}</div>
       <div>
-        <BsFillTrash3Fill onClick={()=>{remove(id, setAction, action)}} />
+        <BsFillTrash3Fill onClick={()=>{remove(id, setAction, action)}} style={{color:'#FF595E', cursor:'pointer'}}/>
       </div>
     </div>
   )

@@ -2,10 +2,11 @@ import { get_all } from "@/utils/fetch_data";
 import { useEffect, useState } from "react";
 import style from "../../../styles/home.module.css"
 import Modal from "./Modal";
+import LoadingScreen from "@/components/Loading";
 
 function Cards({product}) {
   const [brands, setBrands] = useState([])
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [openModal, setOpenModal] = useState(false);
 
@@ -19,13 +20,13 @@ function Cards({product}) {
 
   async function fetchData(){
     try {
-      setLoading(true);
+      setIsLoading(true);
       const response = await get_all('brands');
       setBrands(response);
     } catch (error) {
       setError(error);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -40,8 +41,8 @@ function Cards({product}) {
     fetchData();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return <LoadingScreen />;
   }
 
   if (error) {

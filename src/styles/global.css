@@ -8,11 +8,57 @@
 body{
     background-image: url('../../public/background.png');
     margin: 0;
+    display: flex;
+    justify-content: center;
 }
 
 main{
-    justify-content: center;
     display: grid;
-    margin: 30px 30px 30px 30px;
     margin-bottom: 200px;
+    max-width: 1400px;
+    width: 1400px;
 }
+
+button:hover {
+    transition: filter 0.1s ease-in-out;
+    filter: brightness(0.6);
+}
+
+button:active {
+    filter: brightness(1.4);
+}
+  
+.loading {
+    position: fixed;
+    z-index: 99;
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    background-color: #0000002d;
+    backdrop-filter: blur(5px);
+    filter: grayscale(100%);
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.loading > p {
+    font-size: xx-large;
+    font-weight: 600;
+}
+
+.loading > svg {
+  animation: spin 1s infinite;
+}
+
+@keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }

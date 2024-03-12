@@ -1,17 +1,19 @@
-.header{
+.header {
+  display: flex;
+  justify-content: space-around;
   height: 400px;
-  margin-bottom: 80px;
-  width: 70vw;
+  margin-bottom: 30px;
 }
 
-.header > p:nth-child(2){
-  width: 400px;
+.header > p{
+  display: flex;
+  align-items: flex-end;
   float: right;
   text-align: right;
-  flex-wrap: wrap;
-  font-size: clamp(1.125rem, 2.308vw + 0.029rem, 1.875rem);
-  color: #ffffff;
+  font-size: clamp(1.125rem, 2.54vw + 0.468rem, 2.5rem);
+  color: #1b1b1b;
   animation: fadeIn 2s;
+  margin: 0;
 }
 
 /* ///////////////////////////////////////////////// */
@@ -39,6 +41,7 @@
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: #ffffff;
   transform: rotate(-10deg);
+  animation: zoomInLogo 2s infinite;
 }
 
 .logo > span > p:nth-child(2){
@@ -53,13 +56,32 @@
 /* ///////////////////////////////////////////////// */
 
 .container{
+  display: grid;
+  justify-items: center;
+  width: 100%;
+  margin-top: 100px;
+}
+
+.container > div{
   display: flex;
   justify-content: center;
   align-content: center;
   column-gap: 40px;
   row-gap: 50px;
   flex-wrap: wrap;
-  height: auto;
+  height: max-content;
+}
+
+.container > button{
+  background-color: var(--main-color);
+  color: #ffffff;
+  width: 70px;
+  height: 70px;
+  border: none;
+  border-radius: 50%;
+  margin-top: 50px;
+  cursor: pointer;
+  animation: bounce 1s linear infinite, fadeIn 2s;
 }
 
 /* ///////////////////////////////////////////////// */
@@ -69,9 +91,8 @@
   display: grid;
   justify-content: center;
   width: 300px;
-  height: 300px;
-  /* box-shadow: 0px 13px 20px 1px #00000036; */ 
-  /* padding: 70px 30px 10px 30px; */
+  height: max-content;
+  animation: fadeIn 2s;
 }
 
 .card > p:nth-child(1) {
@@ -135,14 +156,18 @@
   animation: fadeIn 0.3s;
 }
 
-.modal_container > span{
+.modal_container > svg{
   position: absolute;
   top: 0;
   right: 0;
   color: red;
-  margin: 10px;
+  margin: 12px;
   font-size: xx-large;
   cursor: pointer;
+}
+
+.modal_container > svg:hover{
+  animation: spin 1s;
 }
 
 .modal > div{ 
@@ -156,26 +181,64 @@
 }
 
 .modal_container {
-  background-color: #414141;
   position: relative;
-  display: grid;
-  width: 70vw;
-  height: 80vh;
-}
-
-.modal_container > img{
-}
-
-.modal_container > div{
+  padding: 10px;
+  background-color: #ffffff;
+  position: relative;
+  display: flex;
+  width: 700px;
+  height: 60vh;
+  border-radius: 20px;
+  overflow: hidden;
 }
 
 .modal_container > p{
+  position: absolute;
+  bottom: 0;
+  color: #000000a8;
+  margin: 0px 0px 20px 10px;
 }
 
+.modal_container > img{
+  width: 50%;
+  height: inherit;
+  border-radius: 20px;
+  object-fit: cover;
+  transition: width 0.8s;
+}
+
+.modal_container > img:active{
+  position: absolute;
+  border-radius: 20px;
+  width: inherit;
+}
+
+.modal_container > div{
+  width: 100%;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  align-content: baseline;
+  padding: 5px;
+  margin-top: 30px;
+}
+
+.modal_container > div > div:nth-child(1){
+  grid-row: 1;
+}
+
+.modal_container > div > div:nth-child(2){
+  grid-row: 2 / 5;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  margin: 0;
+}
+
+.modal_container > div > div:nth-child(1) > p, 
+.modal_container > div > div:nth-child(2) > p{
+  margin: 0;
+}
 
 /* ///////////////////////////////////////////////// */
-
-
 
 @media only screen and (max-width: 720px) {
   .card > img {
@@ -184,9 +247,11 @@
   .logo *{
     transform: scale(0.8);
   }
-  .header > p:nth-child(2){
-    width: 250px;
+  .modal_container {
+    width: 80vw;
+    height: 60vh;
   }
+  
 }
 
 /* ///////////////////////////////////////////////// */
@@ -194,4 +259,25 @@
 @keyframes fadeIn {
   0% {opacity: 0;}
   100% {opacity: 1;}
+}
+
+@keyframes bounce {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(20%); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes zoomInLogo {
+  0% { transform: scale(1) rotate(-10deg); }
+  50% { transform: scale(1.1) rotate(-10deg); }
+  100% { transform: scale(1) rotate(-10deg); }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

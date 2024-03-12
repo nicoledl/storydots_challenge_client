@@ -2,6 +2,9 @@
 import { add_and_edit, get_all, get_by_id } from "@/utils/fetch_data"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+import style from '../../styles/admin.module.css'
+import { BsArrowLeftCircleFill } from "react-icons/bs"
+import LoadingScreen from "../Loading"
 
 function ProductForm({method, id}) { 
   const [brands, setBrands] = useState([]);
@@ -16,9 +19,18 @@ function ProductForm({method, id}) {
     try 
     {
       const responseProducts = await get_by_id('products', id);
-      const responseBrands = await get_all('brands');
-
       setProduct(responseProducts) 
+    } 
+    catch (error) 
+    {
+      console.error(error)
+    }
+  };
+
+  async function getBrands() {
+    try 
+    {
+      const responseBrands = await get_all('brands');
       setBrands(responseBrands)
     } 
     catch (error) 
@@ -39,6 +51,7 @@ function ProductForm({method, id}) {
     if (method === "PUT") {
       getProduct(id)
     }
+    getBrands()
   },[])
 
 
@@ -68,20 +81,25 @@ function ProductForm({method, id}) {
       router.push(`/`)
       }
       throw error;
-    } 
+    }
   }
 
-
   return(
-    <div>
+    <>
+    {isLoading && <LoadingScreen />}
+    <span className={style.back_button}>
+     <BsArrowLeftCircleFill onClick={()=> router.push('/admin')}/> Back
+    </span>
+    <div className={style.form}>
+      <h1>{method === 'POST' ? 'Add a new product' : 'Edit product'}</h1>
       {error && <div style={{ color: 'red' }}>{error}</div>}
       <form onSubmit={onSubmit}>
           <label>Name</label>
-            <input type="text" name="name" defaultValue={product?.name && product.name} required/>
+            <input type="text" name="name" maxLength="20" defaultValue={product?.name && product.name} required/>
           <label>Description</label>
-            <input type="text" name="description" defaultValue={product?.description && product.description} required/>
+            <textarea type="text" name="description" maxLength="200" rows={7} cols={50} defaultValue={product?.description && product.description} required/>
           <label>Price</label>
-            <input type="text" name="price" defaultValue={product?.price && product.price} required/>
+            <input inputMode="numeric" name="price" type="number" pattern="[0-9]*" min="0" max="1000000"  defaultValue={product?.price && product.price} required/>
           <label>Image</label>
             <input type="text" name="image_url" defaultValue={product?.image_url && product.image_url}/>
           <label>Brands</label>
@@ -93,9 +111,10 @@ function ProductForm({method, id}) {
           <button type="submit" disabled={isLoading}>
             {isLoading ? 'Loading...' : 'Submit'}
           </button>
-      </form>
-    </div>
-  )
+        </form>
+      </div>
+    </>
+    )
 }
 
 export default ProductForm

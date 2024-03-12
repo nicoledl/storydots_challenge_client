@@ -3,17 +3,24 @@ import { get_all } from "@/utils/fetch_data";
 import { useEffect, useState } from "react";
 import Cards from "./products/Cards";
 import style from "../../styles/home.module.css"
+import LoadingScreen from "../Loading";
 
 function Container() {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [displayed, setDisplayed] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchData = async () => {
+  async function fetchData(){
     try 
     {
-      setLoading(true);
+      setIsLoading(true);
       const response = await get_all('products');
+      const fiveProducts = response.slice(0, 4)
+    
+      response.splice(0, 4)
+
+      setDisplayed(displayed.concat(fiveProducts))
       setProducts(response);
     } 
     catch (error) 
@@ -22,16 +29,24 @@ function Container() {
     } 
     finally 
     {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
+
+  function showMore() {
+    const fiveProducts = products.slice(0, 4)
+    
+    products.splice(0, 4)
+
+    setDisplayed(displayed.concat(fiveProducts))
+  }
 
   useEffect(() => {
     fetchData();
   }, []);
   
-  if (loading) {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return <LoadingScreen />;
   }
 
   if (error) {
@@ -39,11 +54,16 @@ function Container() {
   }
 
   return (
-    <div className={style.container}>
-      {products?.map((product) => (
-        <Cards product={product} key={product.id} />
-      ))}
-    </div>
+    <>
+      <div className={style.container}>
+        <div>
+        {displayed?.map((product) => (
+          <Cards product={product} key={product.id} />
+          ))}
+        </div>
+        {products?.length > 0 && <button onClick={showMore}>Show More</button>}
+      </div>
+    </>
 );
 }
 

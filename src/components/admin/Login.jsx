@@ -3,6 +3,8 @@ import { useEffect, useState } from "react"
 import style from "../../styles/admin.module.css"
 import { getToken } from "@/utils/get_token"
 import { useRouter } from 'next/navigation'
+import { BsFillPersonVcardFill, BsPersonFillLock } from "react-icons/bs"
+import LoadingScreen from "../Loading"
 
 function Login() {
   const token = getToken()
@@ -27,6 +29,7 @@ function Login() {
           username: username.value,
           password: password.value,
         }
+
     try
     {  
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}user/login`, {
@@ -51,9 +54,6 @@ function Login() {
     catch (error)
     {
       setError(error.message)
-    }
-    finally
-    {
       setIsLoading(false)
     }
   }
@@ -61,6 +61,7 @@ function Login() {
   if (validToken) {
     return(
       <>
+        {isLoading &&  <LoadingScreen />}
         {error && <span className={style.error_msg} onClick={()=>setError(null)}>{error}</span>}
         <div className={style.login}>
           <div>
@@ -73,15 +74,17 @@ function Login() {
                 <button type="submit">{isLoading ? 'Loading...' : 'Login'}</button>
             </form>
           </div>
-          <button>
-            <img src="https://static.thenounproject.com/png/5548116-200.png" alt="Admin"/> 
-          </button>
+          <BsPersonFillLock style={{fontSize:40}} />
         </div>
       </>
     )
   }
   
-  return
+  return(
+    <div className={style.button_admin_route} onClick={()=> router.push('/admin')}>
+      <BsFillPersonVcardFill/>
+    </div>
+  )
 }
 
 export default Login

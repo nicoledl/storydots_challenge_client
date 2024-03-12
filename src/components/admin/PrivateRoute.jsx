@@ -1,16 +1,18 @@
 'use client'
 import { verify_token } from '@/utils/fetch_data';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import LoadingScreen from '../Loading';
 
 function PrivateRoute({ children }) {
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter();
-  const token = localStorage.getItem('token');
 
   async function verifyToken() {
+    setIsLoading(true)
     try 
     {
-      const response = await verify_token(token);
+      const response = await verify_token();
       return response
     } 
     catch (error) 
@@ -18,12 +20,20 @@ function PrivateRoute({ children }) {
       console.error(error)
       router.push('/');
     }
+    finally
+    {
+      setIsLoading(false)
+    }
   };
 
   useEffect(() => {
     verifyToken()
-  }, [token, router]);
+  }, [router]);
     
+  if (!isLoading) {
+    return <LoadingScreen />
+  }
+
   return children;
 };
 
