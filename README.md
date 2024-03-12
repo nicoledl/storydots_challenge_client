@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# storydots_challenge_server
+# HI!Buy
 
-## Getting Started
+## Descripción
 
-First, run the development server:
+En este proyecto se muestra un e-commerce donde muestra los productos que son ofrecidos por un administrador de la página.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Funcionalidades
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+De parte del front end se puede ver que se desplegan los productos existentes en la base de datos, cada producto está exihbido en una carta y al ser clickeados se desplega un modal donde muestra más información sobre el producto.
+Luego existen rutas privadas para el administrador de la página. En esta se pueden cargar nuevos productos y nuevas marcas, cada uno con su dashboard. Se tiene manejo de crear, editar y borrar productos y marcas. Además el dashboard de productos muestra la información completa al hacer click en su fila.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Librerías utilizadas
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+En este proyecto se utilizó el framework Nextjs, para mi gusto al ser una página donde no vaya a tener mucho diseño por el tiempo que se le dió decidí hacer el diseño usando module.css/css.
+En el front se utilizó como adicional solo la librería "react-icons".
 
-## Learn More
+## FrontEnd
 
-To learn more about Next.js, take a look at the following resources:
+Un adicional para mencionar sobre el frontend es la carpeta utils en donde se encuentran las funciones para traer datos del servidor.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Cómo funciona el backend
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Este lado del proyecto maneja la conexión a la base de datos, se usó cors para el manejo del origen del pedido. En la carpeta config se encuentra la configuración cors y la configuración para la conexión a la base de datos. En la carpeta db se encuentran los modelos, la relaciones de tablas y la función a la conexión a la base de datos. En la carpeta utils se encuentra la función jwt, y el middleware del mismo.
 
-## Deploy on Vercel
+## Endpoints disponibles
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+En el backend existen cuatro rutas, estas son user, products y brands verify-token.
+Existe el middleware "verifyToken" que verifica la validación del token que da acceso a algunos endpoint, por ejemplo de para creación, modificación y eliminar.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+User tiene dos endpoints:
+/user/...
+	Post/ crea un usuario. Utiliza el middleware verifyToken.
+	Post/ login genera un inicio de sesión del usuario y da accesó a usar otros endpoint. Utiliza el middleware verifyToken.
+
+Products tiene 6 endpoints:
+/products/...
+	POST/ crea un producto. Utiliza el middleware verifyToken.
+	GET/ trae todos los productos con todos los datos.
+	GET/:id trae un producto basandose en id pasado por parametro.
+	PUT/:id modifica un producto basandose en el id pasado por parametro. Utiliza el middleware verifyToken.
+	DELETE/:id borra un producto basandose en el id pasado por parametro. Utiliza el middleware verifyToken.
+
+Brands tiene 3 endpoints:
+/brands/...
+	POST/ crea una marca. Utiliza el middleware verifyToken.
+	GET/ trae todas las marcas con sus datos.
+	DELETE/:id borra una marca basandose en el id pasado por parametro. Utiliza el middleware verifyToken.
+
+Existe un endpoint para la ruta principal "/", este lo cree para verificar si el token creado por el usuario al hacer login seguía siendo válido.
+/verify-token/...
+	GET/ devuelve un status 200 si pasó correctamente el middleware.
+
+## Cómo levantar el proyecto en local
+
+1- Descargar los repositorios:
+Frontend: https://github.com/nicoledl/storydots_challenge_client
+Backend: https://github.com/nicoledl/storydots_challenge_server
+
+2- Archivos .env
+Frontend: se crea un archivo .env.local y se escribe "NEXT_PUBLIC_API_URL=http://localhost:3000/"
+Backend: se crea un archivo .env y se escribe los datos de tu base de datos local, además de secret key de JWT y el puerto. Estos son los datos que deben estar: PORT, JWT_SECRET_KEY, DB_DATABASE, DB_USERNAME, DB_PASSWORD, DB_PORT, DB_HOST, DB_DIALECT.
+
+3- Desde tu terminal
+Abres una terminal dentro de la carpeta del cliente corres el comando "npm run dev"
+Abres otra terminal y ahora estando dentro de la carpeta del servidor corres este comando "npm start"
+
+4- Navegador
+Abres tu navegador y en la barra de direcciónes escribes "http://localhost:3001"
