@@ -60,7 +60,7 @@ function DashboardProducts() {
 
   return(
     <div className={style.dashboard}>
-      <div className={style.dashboard_row} style={{backgroundColor:'#ffffff', cursor:'auto', textTransform:'uppercase', fontWeight:'600'}} >
+      <div className={style.dashboard_row} style={{backgroundColor:'#ffffff', cursor:'auto', textTransform:'uppercase', fontWeight:'600', borderRadius:"10px 10px 0 0"}} >
         <div>Image</div>
         <div>Name</div>
         {windowScreen > 722 && <div>Description</div>}
@@ -70,6 +70,7 @@ function DashboardProducts() {
           <BsPlusCircleFill onClick={()=>router.push('/admin/add/products')} style={{color:'var(--main-color)', fontSize:'20px', cursor:'pointer'}} />
         </div>
       </div>
+      {products.length === 0 && <div style={{backgroundColor:'aliceblue', height:50, textAlign:'center', display:'flex', alignItems:'center', justifyContent:'center'}}>There are not products yet...</div>}
       {products?.map(product => <Row key={product.id} product={product} action={action} setAction={setAction} router={router} brands={brands} windowScreen={windowScreen} />)}
     </div>
   )

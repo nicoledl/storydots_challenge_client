@@ -46,13 +46,14 @@ function DashboardBrands() {
 
   return(
     <div className={style.dashboard}>
-      <div className={style.dashboard_row_brands} style={{backgroundColor:'#ffffff', cursor:'auto', textTransform:'uppercase', fontWeight:'600'}}>
+      <div className={style.dashboard_row_brands} style={{backgroundColor:'#ffffff', cursor:'auto', textTransform:'uppercase', fontWeight:'600', borderRadius:"10px 10px 0 0"}}>
         <div>Image</div>
         <div>Name</div>
         <div>
           <BsPlusCircleFill onClick={()=>router.push('/admin/add/brands')} style={{color:'var(--main-color)', fontSize:'20px', cursor:'pointer'}}/>
         </div>
       </div>
+      {brands.length === 0 && <div style={{backgroundColor:'aliceblue', height:50, textAlign:'center', display:'flex', alignItems:'center', justifyContent:'center'}}>There are not brands yet...</div>}
       {brands?.map(brand => <Row key={brand.id} brand={brand} action={action} setAction={setAction} router={router} />)}
     </div>
   )
