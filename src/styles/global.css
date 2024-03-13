@@ -6,9 +6,10 @@
 }
 
 body{
-    background-image: url('../../public/background.png');
+    /* background-image: url('../../public/background.png'); */
+    background-color: #FFF5EE;
     margin: 0;
-    display: flex;
+    /* display: flex; */
     justify-content: center;
 }
 

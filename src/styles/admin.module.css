@@ -23,6 +23,7 @@
     bottom: 50%;
     transition: left 1s ease-in-out;
     z-index: 2;
+
 }
 
 .login > div, .button_admin_route > button{
@@ -37,6 +38,8 @@
     height: inherit;
     align-content: center;
     justify-items: center;
+    
+    box-shadow: -5px 8px 12px 0px rgba(0,0,0,0.6);
 }
 
 .login > div > form *{
