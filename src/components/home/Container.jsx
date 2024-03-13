@@ -55,7 +55,7 @@ function Container() {
 
   if (products.length === 0) {
     return(
-      <h3>There are not products yet...</h3>
+      <h3 style={{textAlign:'center'}}>There are not products yet...</h3>
     )
   }
 
