@@ -15,7 +15,7 @@ function Home() {
   return (
     <main style={{marginTop: 50, width:"100vw", justifyContent:"center", maxWidth:"none"}}>
       <PrivateRoute>
-        <div style={{maxWidth:'1400px', width:"1400px"}}>
+        <div style={{maxWidth:'1400px', width:"inherit"}}>
           <Navbar setClicked={setClicked}/>
           {clicked === 'products' ? <DashboardProducts /> : <DashboardBrands />}
         </div>

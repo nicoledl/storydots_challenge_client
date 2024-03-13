@@ -56,7 +56,6 @@ function Container() {
   return (
     <>
       <div className={style.container}>
-        {products.length === 0 && <h3 style={{textAlign:'center'}}>There are not products yet...</h3>}
         <div>
         {displayed?.map((product) => (
           <Cards product={product} key={product.id} />
