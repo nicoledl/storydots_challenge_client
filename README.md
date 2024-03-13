@@ -73,7 +73,7 @@ Abres tu navegador y en la barra de direcciónes escribes el localhost predeterm
 
 ## Deploy
 
-Utilicé para deployar el frontend Vercel, y para le backend Render.
+Utilicé para deployar el frontend en Vercel, y para le backend en Render(demora en hacer conexión en la primera visita a la página).
 **Para logearse como administrador hay que usar el user "admin"(minuscula) y la constraseña "1234".**
 
 Este es el link a la página:
