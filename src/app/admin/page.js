@@ -13,10 +13,12 @@ function Home() {
   },[clicked])
   
   return (
-    <main style={{marginTop: 50}}>
+    <main style={{marginTop: 50, width:"100vw", justifyContent:"center"}}>
       <PrivateRoute>
-        <Navbar setClicked={setClicked}/>
-        {clicked === 'products' ? <DashboardProducts /> : <DashboardBrands />}
+        <div style={{maxWidth:'1400px', width:"1400px"}}>
+          <Navbar setClicked={setClicked}/>
+          {clicked === 'products' ? <DashboardProducts /> : <DashboardBrands />}
+        </div>
       </PrivateRoute>
     </main>
   );
