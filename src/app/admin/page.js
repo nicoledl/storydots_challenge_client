@@ -13,7 +13,7 @@ function Home() {
   },[clicked])
   
   return (
-    <main style={{marginTop: 50, width:"100vw", justifyContent:"center"}}>
+    <main style={{marginTop: 50, width:"100vw", justifyContent:"center", maxWidth:"none"}}>
       <PrivateRoute>
         <div style={{maxWidth:'1400px', width:"1400px"}}>
           <Navbar setClicked={setClicked}/>

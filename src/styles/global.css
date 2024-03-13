@@ -6,18 +6,14 @@
 }
 
 body{
-    /* background-image: url('../../public/background.png'); */
     background-color: #FFF5EE;
     margin: 0;
-    /* display: flex; */
     justify-content: center;
 }
 
 main{
     display: grid;
     margin-bottom: 200px;
-    max-width: 1400px;
-    width: 1400px;
 }
 
 button:hover {

@@ -24,6 +24,7 @@
   height: 40vh;
   background-color: #20B2AA;
   position: relative;
+  overflow: hidden;
   }
   
 .wave_container::before {   
