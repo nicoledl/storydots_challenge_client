@@ -32,7 +32,7 @@ function Login() {
 
     try
     {  
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}user/login`, {
+      const response = await fetch(`https://storydots-challenge-server.onrender.com/user/login`, {
         method: "POST",
         body: JSON.stringify(formData),
         headers: { 'Content-Type': 'application/json' },

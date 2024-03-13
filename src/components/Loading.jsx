@@ -4,7 +4,7 @@ const { BsArrowClockwise } = require("react-icons/bs");
 function LoadingScreen() {
     return(
         <div className="loading">
-             <p>LODING...</p>
+             <p>LOADING...</p>
              <BsArrowClockwise />
         </div>
     )
