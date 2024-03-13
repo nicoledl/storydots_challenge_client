@@ -53,6 +53,8 @@ Existe un endpoint para la ruta principal "/", este lo cree para verificar si el
 
 ## Cómo levantar el proyecto en local
 
+El proyecto está separado en dos repositorios.
+
 1- Descargar los repositorios:
 Frontend: https://github.com/nicoledl/storydots_challenge_client
 Backend: https://github.com/nicoledl/storydots_challenge_server
@@ -62,8 +64,17 @@ Frontend: se crea un archivo .env.local y se escribe "NEXT_PUBLIC_API_URL=http:/
 Backend: se crea un archivo .env y se escribe los datos de tu base de datos local, además de secret key de JWT y el puerto. Estos son los datos que deben estar: PORT, JWT_SECRET_KEY, DB_DATABASE, DB_USERNAME, DB_PASSWORD, DB_PORT, DB_HOST, DB_DIALECT.
 
 3- Desde tu terminal
-Abres una terminal dentro de la carpeta del cliente corres el comando "npm run dev"
+Abres una terminal dentro de la carpeta del cliente corres el comando "npm start"
 Abres otra terminal y ahora estando dentro de la carpeta del servidor corres este comando "npm start"
 
 4- Navegador
-Abres tu navegador y en la barra de direcciónes escribes "http://localhost:3001"
+Abres tu navegador y en la barra de direcciónes escribes el localhost predeterminado.
+
+
+## Deploy
+
+Utilicé para deployar el frontend Vercel, y para le backend Render.
+**Para logearse como administrador hay que usar el user "admin"(minuscula) y la constraseña "1234".**
+
+Este es el link a la página:
+https://storydots-challenge-client-git-main-nicoledl.vercel.app
