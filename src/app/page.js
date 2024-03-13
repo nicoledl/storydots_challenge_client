@@ -1,6 +1,6 @@
 import Login from "@/components/admin/Login";
 import Container from "@/components/home/Container";
-import Header from "@/components/home/header";
+import Header from "@/components/home/Header";
 
 function Home() {
   return (
