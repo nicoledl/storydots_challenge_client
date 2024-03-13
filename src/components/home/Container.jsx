@@ -53,6 +53,12 @@ function Container() {
     return <div>Error: {error.message}</div>;
   }
 
+  if (products.length === 0) {
+    return(
+      <h3>There are not products yet...</h3>
+    )
+  }
+
   return (
     <>
       <div className={style.container}>
